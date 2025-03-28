@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Mahasiswa Baru</title>
+    <link rel="stylesheet" href="styles.css">  
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h2>Formulir Pendaftaran Mahasiswa Baru</h2>
+        
+        <div id="alert" class="alert" style="display: none;"></div>
+
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" id="nama" name="nama">
+                <span class="error" id="namaErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <span class="error" id="emailErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="nim">NIM</label>
+                <input type="text" id="nim" name="nim">
+                <span class="error" id="nimErr"></span>
+            </div>
+
+            <div class="button-container">
+                <button type="button" onclick="validateForm()">Daftar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let nama = document.getElementById("nama").value;
+            let email = document.getElementById("email").value;
+            let nim = document.getElementById("nim").value;
+            let valid = true;
+            
+            document.getElementById("namaErr").innerText = "";
+            document.getElementById("emailErr").innerText = "";
+            document.getElementById("nimErr").innerText = "";
+            document.getElementById("alert").style.display = "none";
+            
+            if (nama.trim() === "") {
+                document.getElementById("namaErr").innerText = "* Nama wajib diisi";
+                valid = false;
+            }
+            
+            if (email.trim() === "") {
+                document.getElementById("emailErr").innerText = "* Email wajib diisi";
+                valid = false;
+            } else if (!email.includes("@")) {
+                document.getElementById("emailErr").innerText = "* Format email tidak valid";
+                valid = false;
+            }
+            
+            if (nim.trim() === "") {
+                document.getElementById("nimErr").innerText = "* NIM wajib diisi";
+                valid = false;
+            } else if (isNaN(nim)) {
+                document.getElementById("nimErr").innerText = "* NIM harus berupa angka";
+                valid = false;
+            }
+            
+            if (!valid) {
+                document.getElementById("alert").className = "alert alert-danger";
+                document.getElementById("alert").innerText = "Kesalahan! Harap perbaiki data yang salah.";
+                document.getElementById("alert").style.display = "block";
+            } else {
+                document.getElementById("alert").className = "alert alert-success";
+                document.getElementById("alert").innerText = "Berhasil! Data pendaftaran telah diterima.";
+                document.getElementById("alert").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
